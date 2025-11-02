@@ -1,1 +1,6 @@
 Q. Define an appropriate state space and action space for this problem
+    Answer the state space would be the current stock of the product
+    The action space is defined by the inventory. If the inventory is zero the only action possible
+    is ordering 1 of the product so increasing the current stock. For all the states inbetween 1 and infinity 
+    there are two possible actions increasing by ordering more product or decreasing due to demand at that time
+    
