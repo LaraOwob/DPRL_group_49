@@ -11,7 +11,6 @@ def solve_dp(V,policy,T, x_max, p_sell, h, order_p):
             Q = []
             for a in [0, 1]: 
                 if a == 0:
-                    
                     stock_before = x
                     #if demand
                     sales_if_d1 = min(1, stock_before)
@@ -19,7 +18,6 @@ def solve_dp(V,policy,T, x_max, p_sell, h, order_p):
                     reward_if_d1 = p_sell * sales_if_d1 - h * next_stock_if_d1
 
                     #if no demand
-                    sales_if_d0 = 0
                     next_stock_if_d0 = stock_before
                     reward_if_d0 = - h * next_stock_if_d0
 
@@ -27,12 +25,12 @@ def solve_dp(V,policy,T, x_max, p_sell, h, order_p):
                                 (1 - p_d) * (reward_if_d0 + V[next_stock_if_d0, t + 1]))
                 else:
                     #if order arrives
-                    # if demand
+                    #if demand
                     stock_s = min(x + 1, x_max)
                     sales_s_1 = min(1, stock_s)
                     next_s_1 = stock_s - sales_s_1
                     reward_s_1 = p_sell * sales_s_1 - h * next_s_1
-                    # if no demand
+                    #if no demand
                     sales_s_0 = 0
                     next_s_0 = stock_s
                     reward_s_0 = - h * next_s_0
@@ -41,15 +39,15 @@ def solve_dp(V,policy,T, x_max, p_sell, h, order_p):
                                    (1 - p_d) * (reward_s_0 + V[next_s_0, t + 1]))
 
                     #if order fails
-                    # if demand
+                    #if demand
                     stock_f = x
                     sales_f_1 = min(1, stock_f)
                     next_f_1 = stock_f - sales_f_1
                     reward_f_1 = p_sell * sales_f_1 - h * next_f_1
-                    # if no demand
+                    #if no demand
                     sales_f_0 = 0
                     next_f_0 = stock_f
-                    reward_f_0 = p_sell * sales_f_0 - h * next_f_0
+                    reward_f_0 = - h * next_f_0
 
                     val_fail = (p_d * (reward_f_1 + V[next_f_1, t + 1]) +
                                 (1 - p_d) * (reward_f_0 + V[next_f_0, t + 1]))
